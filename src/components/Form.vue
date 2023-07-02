@@ -9,6 +9,7 @@ const alert = reactive<AlertI>({
 })
 
 const props = defineProps<{
+    id:string | null
     animalName:string
     animalType:string
     ownerName:string
@@ -25,7 +26,8 @@ const emit = defineEmits([
     "update:email",
     "update:date",
     "update:symptoms",
-    "create-new-patient"
+    "create-new-patient",
+
 ])
 
 const save = () => {
@@ -48,7 +50,9 @@ const save = () => {
 }
 
 
-
+const editing = computed(() => {
+    return props.id
+})
 
 
 </script>
@@ -162,8 +166,7 @@ const save = () => {
                     <button 
                         type="submit" 
                         class="rounded-md bg-lime-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-lime-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-500">
-                        <!-- {{ editing ? 'Modifier patiente' : 'Enregistrer nouveau patiente' }} -->
-                        Enregistrer
+                        {{ editing ? 'Modifier patiente' : 'Enregistrer nouveau patiente' }}
                     </button>
                 </div>
         </form>

@@ -10,7 +10,7 @@ export interface AnimalTypeI{
 }
 
 export interface DataI{
-    id:string,
+    id:string|null,
     animalName:string;
     animalType:string;
     ownerName:string;

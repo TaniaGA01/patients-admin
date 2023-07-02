@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import { uid } from 'uid'
 import { DataI } from './services/interfaces/form.interfaces'
 import { AnimalTypeI } from './services/interfaces/form.interfaces'
 import Header from './components/Header.vue'
 import Form from './components/Form.vue'
 import Patient from './components/Patient.vue'
+
 
 let animalOptions = ref<AnimalTypeI[]>([
     {id:0,text: 'Chien', value: 1},
@@ -16,7 +17,7 @@ let animalOptions = ref<AnimalTypeI[]>([
 ])
 
 let patientData = reactive<DataI>({
-    id:'',
+    id:null,
     animalName: '',
     animalType: '',
     ownerName: '',
@@ -27,27 +28,42 @@ let patientData = reactive<DataI>({
 
 const allPatientsData = ref<DataI[]>([])
 
+watch( allPatientsData, () => { // watch detect state changes
+  saveLocalStorage()
+}, {
+  deep:true // check all allPatientsData attributs changes
+})
+
+onMounted(() => {
+    //persistence patient if there is a patient in allPatientsData
+    const patientsStorage = localStorage.getItem('allPatientsData')
+    if(patientsStorage){
+      allPatientsData.value = JSON.parse(patientsStorage)
+    }
+});
+
+const saveLocalStorage = () => { // patient persistance
+  localStorage.setItem('allPatientsData', JSON.stringify(allPatientsData.value))
+}
+
 const createNewPatient = ():unknown => {
 
   if(patientData.id){
-
     const { id } = patientData
-    const i = allPatientsData.value.findIndex((patient) => patient.id === id)
+    const i = allPatientsData.value.findIndex(patient => patient.id === id)
     allPatientsData.value[i] = {...patientData}
-
   }else{
     allPatientsData.value.push({ 
     ...patientData,
-    id : uid()
+    id: uid()
    })
   }
   
-
   const getSelect = document.querySelector('select') as HTMLSelectElement
 
   return [
     Object.assign( patientData, {
-      id:'',
+      id:null,
       animalName: '',
       animalType: '',
       ownerName: '',
@@ -55,12 +71,23 @@ const createNewPatient = ():unknown => {
       dateArrive: '',
       symptoms: ''
     }), 
-    getSelect.selectedIndex = 0]
+    getSelect.selectedIndex = 0
+  ]
 }
 
-const updatePatient = (id:any) => {
+const updatePatient = (id:string|null):void => {
   const patientToUpdate = allPatientsData.value.filter(patient => patient.id === id)[0]
+  const patientType = patientToUpdate.animalType
+
+  const optionIndex = animalOptions.value.findIndex(option => option.text === patientType)
+  const getSelect = document.querySelector('select') as HTMLSelectElement
+
+  getSelect.selectedIndex = optionIndex + 1
   Object.assign(patientData, patientToUpdate)
+}
+
+const deletePatient = (id:string|null) => {
+  allPatientsData.value = allPatientsData.value.filter(patient => patient.id !== id)
 }
 
 </script>
@@ -79,6 +106,7 @@ const updatePatient = (id:any) => {
           v-model:symptoms="patientData.symptoms"
           @create-new-patient="createNewPatient"
           :animalOptions="animalOptions"
+          :id="patientData.id"
         />
       </div>
       <div class="md:w-1/2 rounded mb-10 ">
@@ -95,6 +123,7 @@ const updatePatient = (id:any) => {
               v-for="patient in allPatientsData" :key="patient.id"
               :patient="patient"
               @update-patient="updatePatient"
+              @delete-patient="deletePatient"
             />
           </div>
         </div>
