@@ -88,6 +88,19 @@ const updatePatient = (id:string|null):void => {
 
 const deletePatient = (id:string|null) => {
   allPatientsData.value = allPatientsData.value.filter(patient => patient.id !== id)
+  const getSelect = document.querySelector('select') as HTMLSelectElement
+  return [
+    Object.assign( patientData, {
+      id:null,
+      animalName: '',
+      animalType: '',
+      ownerName: '',
+      email: '',
+      dateArrive: '',
+      symptoms: ''
+    }), 
+    getSelect.selectedIndex = 0
+  ]
 }
 
 </script>
@@ -127,7 +140,7 @@ const deletePatient = (id:string|null) => {
             />
           </div>
         </div>
-        <div v-else>
+        <div v-else class=" flex justify-center bg-gray-800 p-3 rounded-md">
           <p>Aucun patient existe</p>
         </div>
       </div>

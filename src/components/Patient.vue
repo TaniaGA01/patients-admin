@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/20/solid";
 import { DataI } from '../services/interfaces/form.interfaces'
 
 defineProps<{
@@ -12,6 +13,15 @@ defineEmits([
 </script>
 <template>
     <div class="bg-gray-800 shadow-xl rounded p-5 mb-10 text-white ">
+        <div class=" flex justify-end">
+            <button 
+                type="button"
+                class="block w-fit hover:text-blue-500 text-white font-bold uppercase rounded-lg"
+                @click="$emit('update-patient', patient.id)"
+            >
+                <PencilSquareIcon class="h-6" />
+            </button>
+        </div>
         <p class="font-bold mb-3 uppercase text-gray-500">ID :
             <span class="font-normal normal-case text-white">
                 {{ patient.id }}
@@ -57,22 +67,14 @@ defineEmits([
             {{ patient.symptoms }}
             </span>
         </p>
-
-        <div class="grid md:grid-cols-2 gap-5 mt-10 ">
+        <hr class="my-5">
+        <div class="grid md:grid-cols-2 gap-5">
             <button 
                 type="button"
-                class="block w-full py-2 px-10 bg-lime-600 hover:bg-lime-700 text-white font-bold uppercase rounded-lg"
-                @click="$emit('update-patient', patient.id)"
-            >
-                Modifier
-            </button>
-
-            <button 
-                type="button"
-                class="block w-full py-2 px-10 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-lg"
+                class="block w-fit hover:text-red-700 text-white font-bold uppercase rounded-lg"
                 @click="$emit('delete-patient', patient.id)"
             >
-                Supprimer
+                <TrashIcon class="h-6" />
             </button>
         </div>
     </div>

@@ -165,7 +165,7 @@ const editing = computed(() => {
             <div class="mt-5 flex justify-center">
                     <button 
                         type="submit" 
-                        class="rounded-md bg-lime-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-lime-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-500">
+                        :class="[editing ? 'bg-blue-500' : 'bg-lime-500', 'rounded-md  px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-lime-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-500']">
                         {{ editing ? 'Modifier patiente' : 'Enregistrer nouveau patiente' }}
                     </button>
                 </div>
