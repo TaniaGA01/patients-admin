@@ -133,7 +133,7 @@ const deletePatient = (id:string|null) => {
           </div>
           <div class="overflow-x-scroll md:h-screen">
             <Patient
-              v-for="patient in allPatientsData" :key="patient.id"
+              v-for="patient in allPatientsData" :key="(patient.id as unknown as number)"
               :patient="patient"
               @update-patient="updatePatient"
               @delete-patient="deletePatient"

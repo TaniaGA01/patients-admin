@@ -80,7 +80,7 @@ const editing = computed(() => {
                         placeholder="Nom de l'animal"
                         autocomplete="animalName" 
                         :value="animalName"
-                        @input="$emit('update:animalName', $event.target?.value)"
+                        @input="$emit('update:animalName', ($event.target as HTMLInputElement).value)"
                         class="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6 placeholder-gray-500" 
                     />
                 </div>
@@ -92,7 +92,7 @@ const editing = computed(() => {
                         id="animal-type"
                         name="animal-type"
                         autocomplete="animal-type"
-                        @input="$emit('update:animal-type', $event.target?.value)"
+                        @input="$emit('update:animal-type', ($event.target as HTMLInputElement).value)"
                         class="min-w-0 flex-auto rounded-md h-10 border-0 bg-white/30 px-3.5 py-2 text-white/80 shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6 w-full uppercase">
                         <option selected>Choissisez un type d'animal</option>
                         <option 
@@ -115,7 +115,7 @@ const editing = computed(() => {
                             placeholder="Nom du propriètaire"
                             autocomplete="owner-name"
                             :value="ownerName" 
-                            @input="$emit('update:ownerName', $event.target?.value)"
+                            @input="$emit('update:ownerName', ($event.target as HTMLInputElement).value)"
                             class="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6 placeholder-gray-500" 
                         />
                 </div>
@@ -130,7 +130,7 @@ const editing = computed(() => {
                         placeholder="Adresse mail"
                         autocomplete="email"
                         :value="email"  
-                        @input="$emit('update:email', $event.target?.value)"
+                        @input="$emit('update:email', ($event.target as HTMLInputElement).value)"
                         class="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6 placeholder-gray-500" 
                     />
                 </div>
@@ -144,7 +144,7 @@ const editing = computed(() => {
                         name="date-arrive"
                         autocomplete="date" 
                         :value="date" 
-                        @input="$emit('update:date', $event.target?.value)"
+                        @input="$emit('update:date', ($event.target as HTMLInputElement).value)"
                         class="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6 placeholder-gray-500" 
                     />
                 </div>
@@ -157,7 +157,7 @@ const editing = computed(() => {
                         name="symptoms"
                         placeholder="Description des symptômes" 
                         :value="symptoms"
-                        @input="$emit('update:symptoms', $event.target?.value)"
+                        @input="$emit('update:symptoms', ($event.target as HTMLInputElement).value)"
                         class="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6 placeholder-gray-500" 
                     />
                 </div>
